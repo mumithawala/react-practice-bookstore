@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Login from './Login';
 
 function navbar() {
-    const [theme, setTheme] = React.useState.localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light'
+    const [theme, setTheme] = useState(localStorage.getItem('theme')? localStorage.getItem('theme') : 'light');
     const element = document.documentElement;
     useEffect(() => {
         if (theme === 'dark') {
-            element.classList.add('dark')
-            localStorage.setItem('theme', 'dark')
-            document.body.classList.add('dark')
+            element.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            document.body.classList.add('dark');
         } else {
-            element.classList.remove('dark')
-            localStorage.setItem('theme', 'light')
-            document.body.classList.remove('dark')
+            element.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            document.body.classList.remove('dark');
         }
-    }, []);
+    }, [theme]);
+      
 
     const [sticky, setSticky] = React.useState(false)
     useEffect(() => {
@@ -44,7 +46,7 @@ function navbar() {
     ];
     return (
         <>
-            <div className={`container mx-auto max-w-screen-2xl md:px-20 px-5 fixed top-0 right-0 left-0 ${sticky ? "sticky-navbar bg-base-300 shadow-md duration-300 transation-all ease-in-out z-50"
+            <div className={`container mx-auto max-w-screen-2xl md:px-20 px-5 fixed top-0 right-0 left-0 dark:bg-slate-900 ${sticky ? "sticky-navbar bg-base-300 shadow-md duration-300 transation-all ease-in-out z-50"
                 : ""}`}
             >
                 <div className="navbar ">
@@ -133,8 +135,12 @@ function navbar() {
 
                         </div>
                         <div className=''>
-                            <a className="bg-black text-white hover:bg-slate-900 duration-300 cursor-pointer p-3 rounded-md
-                        ">Login</a>
+                            <a className="bg-black text-white hover:bg-slate-900 duration-300 cursor-pointer p-3 rounded-md"
+                            onClick = {() => 
+                                document.getElementById('my_modal_3').showModal()}
+                            >Login</a>
+                            <Login/>
+                          
 
                         </div>
                     </div>
